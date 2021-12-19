@@ -1,0 +1,66 @@
+using System;
+
+namespace MyProgram
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter your password. It must include at least one uppercase letter, one lowercase letter and one special character (/, *, %). It must be between 6 and 20 characters");
+
+            string password = Console.ReadLine();
+
+            // checks if the password is between 6 and 20 characters
+            int passwordLength = password.Length;
+            bool passwordNotTooLong = passwordLength < 20;
+            bool passwordNotTooShort = passwordLength > 6;
+
+            bool goodSize = passwordNotTooLong && passwordNotTooShort;
+
+            // checks if the password has at least 1 uppercase and 1 lowercase character
+            bool atLeastOneLowercase;
+            bool atLeastOneUppercase;
+            if (password.ToUpper() == password)
+            {
+                atLeastOneLowercase = false;
+            }
+            else
+            {
+                atLeastOneLowercase = true;
+            }
+            if (password.ToLower() == password)
+            {
+                atLeastOneUppercase = false;
+            }
+            else
+            {
+                atLeastOneUppercase = true;
+            }
+            bool oneUppercaseAndOneLowercase = atLeastOneLowercase && atLeastOneUppercase;
+
+            // checks if the password includes special characters (/, * or %)
+            int findForwardSlash = password.IndexOf("/");
+            int findStar = password.IndexOf("*");
+            int findPercentSign = password.IndexOf("%");
+
+            bool isThereAForwardSlash = findForwardSlash >= 0;
+            bool isThereAStar = findStar >= 0;
+            bool isThereAPercentSign = findPercentSign >= 0;
+
+            bool specialCharacter = isThereAForwardSlash || isThereAStar || isThereAPercentSign;
+
+            // if all the previous checks come up true, the program will print "The password is allowed".
+            // otherwise, it will print "The password is not allowed"
+            bool isAllowed = goodSize && specialCharacter && oneUppercaseAndOneLowercase;
+
+            if (isAllowed == true)
+            {
+                Console.WriteLine("The password is allowed");
+            }
+            else
+            {
+                Console.WriteLine("The password is not allowed");
+            }
+        }
+    }
+}
