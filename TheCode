@@ -1,0 +1,62 @@
+using System;
+
+namespace Review
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter your password. It must include at least one uppercase letter, one lowercase letter and one special character (/, *, %). It must be between 6 and 20 characters");
+
+            string password = Console.ReadLine();
+
+            int passwordLength = password.Length;
+            bool passwordNotTooLong = passwordLength < 20;
+            bool passwordNotTooShort = passwordLength > 6;
+
+            bool goodSize = passwordNotTooLong && passwordNotTooShort;
+
+            bool atLeastOneLowercase;
+            bool atLeastOneUppercase;
+            if (password.ToUpper() == password)
+            {
+                atLeastOneLowercase = false;
+            }
+            else
+            {
+                atLeastOneLowercase = true;
+            }
+            if (password.ToLower() == password)
+            {
+                atLeastOneUppercase = false;
+            }
+            else
+            {
+                atLeastOneUppercase = true;
+            }
+            bool oneUppercaseAndOneLowercase = atLeastOneLowercase && atLeastOneUppercase;
+
+            int findForwardSlash = password.IndexOf("/");
+            int findStar = password.IndexOf("*");
+            int findPercentSign = password.IndexOf("%");
+
+            bool isThereAForwardSlash = findForwardSlash >= 0;
+            bool isThereAStar = findStar >= 0;
+            bool isThereAPercentSign = findPercentSign >= 0;
+
+            bool specialCharacter = isThereAForwardSlash || isThereAStar || isThereAPercentSign;
+
+            bool isAllowed = goodSize && specialCharacter && oneUppercaseAndOneLowercase;
+
+            if (isAllowed == true)
+            {
+                Console.WriteLine("The password is allowed");
+            }
+            else
+            {
+                Console.WriteLine("The password is not allowed");
+            }
+
+        }
+    }
+}
